@@ -37,7 +37,7 @@ def search_address_on_map(address):
     
     print("Successed input")
     current_url = driver.current_url
-    driver.quit()
+    #driver.quit()
     
     return current_url
 
