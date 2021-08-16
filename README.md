@@ -4,7 +4,7 @@
 
 1. A Blueprint Flask application collect imputed address by any user, with selenium access Yandex map, write the address on search label, click on search button, get the new URL with the address imputed coordinates, after use requests and BeautifulSoup to works on HTML extract the coordinate values in string type, convert to float type, verify if coordinates are out or inside MKAD, and finally works from a conditional to calculate the distance - if addres are out - or not calculate the distance - if address are located inside. The blueprint contains 2 directories: **main**, where app return Homepage, and result, route where are located all the backend and return result of application. 
 2. A file **READMEcode.md**, especifically README created to explains the functions and also the code in @result.route
-3. 1 directory named **TESTS**, where are located the Unit tests of application, and a file name READMEtest, which explains all the scenarios of created tests.
+3. 1 directory named **TESTS**, where are located the Unit tests of application, and a file name **READMEtest.md**, which explains all the scenarios of created tests.
 4. 1 file named **webserver.py**, where are setted a server of application.
 
    
@@ -64,9 +64,9 @@ Affer concluded necessary libraries installations, we can try to run and works o
 
 
 
-For runs the tests, in command line, inside px-python-blueprint-yandexmap, type  **python3 -m pytest**
+For runs the tests, in command line, inside **px-python-blueprint-yandexmap**, type  **python3 -m pytest**
 
-## 
+
 
 #  How the content is organized:
 
@@ -117,3 +117,76 @@ The executable file are composed by 3 python files: main.py , functions.py, _tes
 
    - **READMtest.md**: explains all the test functions created. 
 
+
+
+
+
+# How was my thinking to drive this task:
+
+
+
+First I tried to understand the context of task to chek what knowledge I had and what I would have to learn. So I realized I could use my experience with some libraries to complete most task, but I would have to learn:
+
+1.  Blueprint: I understood that is a module from flask used to scale and modulate application, that all the routes are personalized and stored in folders with the name of route. So, the @app.route that I used to use in my project, would be changed to nameofroute.route. Example: @result.route to result's page of application.
+2. Unit Tests: I had never experienced unit tests before. After exploring I understood that is way to check inputs and outputs of function's application, so I decided to explore Pytest to use in this project. The result was the file test_functions.py located inside a tests directory of this repository. I believe there is many points to improve, but I think I got to do something. 
+3. Docker: also never experienced this stack before, how it would be considered a plus, I decided to focus in another tasks, but I understood generally that doccker is a way to create images of system's to set and facilitate development environment, since the same project can be accessed from many different machines. 
+
+
+
+# Then, I started thinking: 
+
+
+
+1. I googled what is Yandex, because I did not know what it was, so I discovered that is the biggest searcher in Russia and thats also contains a map app. 
+
+2. I accessed the URL sent in doc test, found a language that I did not know, realized that was russian because of **.ru**   
+
+3. So I changed **.ru** to **.com** and accessed the english version to start a task, because I have no knowledge in russian.
+
+   - URL sent in russian: https://yandex.ru/dev/maps/geocoder/doc/desc/concepts/about.html
+
+   - URL sent  in task: https://yandex.com/dev/maps/geocoder/doc/desc/concepts/about.html
+
+4. Started to explore the platform.
+
+5. Accessed the **"Maps"** icon  to know the maps app of Yandex.  
+
+6. Entered in maps "MKAD" to localize the Moscow Ring Road and try to understand the thinking I would need to have to build the application. 
+
+7. I understood there are coordinates in map and this could be the starter to build the conditional that would check if address are inside or out MKAD. 
+
+8. Started to click in different points of map to understand latitude and longitude context. 
+
+9. Then, I chose 4 limit points in MKAD circunference 
+
+10. Since I selected 4 limit points inside MKAD circunference, I would have to use them in conditional to check if address imputed are inside or out MKAD. The values were marked in bold bellow:
+
+    
+
+    Latitude_higher = **55.911195**, 37.576244
+
+    latitude_lower = **55.572492**, 37.675021
+
+    longitude_higher = 55.821680, **37.837073**
+
+    longitude_lower = 55.784416, **37.370051**
+
+    
+
+    So, if the address entered contains  values  (lat and long) located inside this values especifed above, they will be computed as a inside MKAD address, else it will be computed as outside address. 
+
+    
+
+    Example in code: 
+
+    if latitude < 55.911195 and latitude > 55.572492 and longitude < 37.837073 and longitude > 37.370051: 
+
+    ​					**Distance not computed because the address are located inside MKAD**
+
+    Else:
+
+    ​					**The code continues to calculate the distance**
+
+
+
+11. After this understanding, I started all the work resulted in this respository, with libraries and functions used to achieve the goals.
